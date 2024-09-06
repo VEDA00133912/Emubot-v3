@@ -1,4 +1,5 @@
 const { Client, GatewayIntentBits, Collection } = require('discord.js');
+const setupGlobalErrorHandling = require('./modules/error/globalError');
 const { config } = require('dotenv');
 const fs = require('fs');
 config();
@@ -30,4 +31,5 @@ for (const file of textCommandFiles) {
     client.on(textCommand.name, (...args) => textCommand.execute(...args, client));
 }
 
+setupGlobalErrorHandling(client);
 client.login(process.env.TOKEN);
