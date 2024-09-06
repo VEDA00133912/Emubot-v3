@@ -11,12 +11,12 @@ module.exports = async function handleTextCommandError(client, message, error, f
         const errorEmbed = new EmbedBuilder()
             .setTitle('Text Command Error')
             .setColor('Red')
-            .setDescription(`[${FileName}]テキストコマンドの実行中にエラーが発生しました。`)
+            .setDescription(`${FileName}テキストコマンドの実行中にエラーが発生しました。`)
             .addFields(
                 { name: 'Error', value: `\`\`\`${error.message}\`\`\`` },
-                { name: 'command', value: FileName, inline: true },
-                { name: 'server', value: message.guild.name, inline: true },
-                { name: 'channel', value: message.channel.name, inline: true }
+                { name: 'Command', value: FileName, inline: true },
+                { name: 'Server', value: message.guild.name, inline: true },
+                { name: 'Channel', value: message.channel.name, inline: true }
             )
             .setTimestamp()
             .setFooter({ text: `Emubot`, iconURL: client.user.displayAvatarURL() });
