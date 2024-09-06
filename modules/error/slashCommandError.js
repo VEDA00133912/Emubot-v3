@@ -34,5 +34,5 @@ module.exports = async function handleSlashCommandError(client, interaction, err
         console.error('エラーログチャンネルが見つかりません。');
     }
 
-    console.error(`[${interaction.commandName}] コマンド実行中にエラーが発生しました:`, error);
+    console.error(`/${interaction.commandName}実行中にエラーが発生しました:`, error);
 };
