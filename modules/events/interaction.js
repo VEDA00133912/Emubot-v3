@@ -10,7 +10,7 @@ module.exports = {
                 await command.execute(interaction, client);
             } catch (error) {
                 console.error('Error handling slash command interaction:', error);
-                slashCommandError(client, interaction, error);
+                interactionError(client, interaction, error);
             }
         }
     },
