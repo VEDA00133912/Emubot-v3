@@ -10,7 +10,7 @@ module.exports = async function handleTextCommandError(client, message, error, f
 
         const errorEmbed = new EmbedBuilder()
             .setTitle('Text Command Error')
-            .setColor('#FF0000')
+            .setColor('Red')
             .setDescription(`[${FileName}]テキストコマンドの実行中にエラーが発生しました。`)
             .addFields(
                 { name: 'Error', value: `\`\`\`${error.message}\`\`\`` },
@@ -30,7 +30,7 @@ module.exports = async function handleTextCommandError(client, message, error, f
             console.error('エラーログチャンネルが見つかりません。');
         }
 
-        console.error(`[${FileName} テキストコマンド実行中にエラーが発生しました:`, error);
+        console.error(`${FileName} テキストコマンド実行中にエラーが発生しました:`, error);
     } catch (followUpError) {
         console.error('エラーハンドリングの実行中にエラーが発生しました:', followUpError);
     }
