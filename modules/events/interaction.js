@@ -1,7 +1,8 @@
+const { Events } = require('discord.js');
 const interactionError = require('../error/interactionError');
 
 module.exports = {
-    name: 'interactionCreate',
+    name: Events.InteractionCreate,
     async execute(interaction, client) {
         if (interaction.isCommand()) {
             try {
