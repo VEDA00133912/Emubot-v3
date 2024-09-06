@@ -1,4 +1,4 @@
-const slashCommandError = require('../error/slashCommandError');
+const slashCommandError = require('../error/interactionError');
 
 module.exports = {
     name: 'interactionCreate',
