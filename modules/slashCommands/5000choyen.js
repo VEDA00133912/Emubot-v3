@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const cooldown = require('../events/cooldown');
-const handleSlashCommandError = require('../error/slashCommandError');
+const slashCommandError = require('../error/slashCommandError');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -33,7 +33,7 @@ module.exports = {
 
       await interaction.editReply({ embeds: [embed] });
     } catch (error) {
-      handleSlashCommandError(interaction.client, interaction, error);
+      slashCommandError(interaction.client, interaction, error);
     }
   },
 };
