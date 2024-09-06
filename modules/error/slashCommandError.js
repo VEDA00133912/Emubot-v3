@@ -14,12 +14,12 @@ module.exports = async function handleSlashCommandError(client, interaction, err
 
     const errorEmbed = new EmbedBuilder()
         .setTitle(`Error: ${error.name}`)
-        .setColor('#FF0000')
+        .setColor('Red')
         .setDescription(`**/${interaction.commandName}**の実行中にエラーが発生しました`)
         .addFields(
             { name: 'error', value: `\`\`\`${error.message}\`\`\`` },
             { name: 'command', value: `${interaction.commandName}`, inline: true },
-            { name: 'interactionUser', value: `${interaction.user.tag}`, inline: true },
+            { name: 'server', value: `${interaction.guild.name}`, inline: true },
             { name: 'channel', value: `${interaction.channel.name}`, inline: true }
         )
         .setTimestamp()
