@@ -14,7 +14,9 @@ module.exports = (client, interaction, error) => {
             { name: 'Interaction User', value: `${interaction.user.tag}`, inline: true },
             { name: 'Time', value: new Date().toLocaleString(), inline: true }
         )
-        .setFooter({ text: `Occurred in ${interaction.guild.name}` });
+        .setFooter({ text: `Occurred in ${interaction.guild.name}` })
+        .setTimestamp()
+        .setFooter({ text: `Emubot | ${interaction.commandName}`, iconURL: client.user.displayAvatarURL() });
 
     const errorChannel = client.channels.cache.get(channelId);
     if (errorChannel) {
