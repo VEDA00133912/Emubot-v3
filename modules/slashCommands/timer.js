@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
-const handleSlashCommandError = require('../error/slashCommandError');
+const slashCommandError = require('../error/slashCommandError');
 const cooldown = require('../events/cooldown');
 const fs = require('fs');
 const interaction = require('../events/interaction');
@@ -37,7 +37,7 @@ module.exports = {
       saveTimer(interaction.user.id, interaction.channel.id, totalSeconds);
       startTimer(interaction, minutes, seconds, totalSeconds);
     } catch (error) {
-      await handleSlashCommandError(interaction.client, interaction, error);
+      slashCommandError(interaction.client, interaction, error);
     }
   },
 };
