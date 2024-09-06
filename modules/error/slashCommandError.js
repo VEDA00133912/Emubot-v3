@@ -17,10 +17,10 @@ module.exports = async function handleSlashCommandError(client, interaction, err
         .setColor('Red')
         .setDescription(`**/${interaction.commandName}**の実行中にエラーが発生しました`)
         .addFields(
-            { name: 'error', value: `\`\`\`${error.message}\`\`\`` },
-            { name: 'command', value: `${interaction.commandName}`, inline: true },
-            { name: 'server', value: `${interaction.guild.name}`, inline: true },
-            { name: 'channel', value: `${interaction.channel.name}`, inline: true }
+            { name: 'Error', value: `\`\`\`${error.message}\`\`\`` },
+            { name: 'Command', value: `${interaction.commandName}`, inline: true },
+            { name: 'Server', value: interaction.guild ? interaction.guild.name : 'N/A', inline: true },
+            { name: 'Channel', value: `${interaction.channel.name}`, inline: true }
         )
         .setTimestamp()
         .setFooter({ text: `Emubot | ${interaction.commandName}`, iconURL: client.user.displayAvatarURL() });
