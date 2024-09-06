@@ -1,8 +1,8 @@
-const { SlashCommandBuilder, EmbedBuilder, PermissionsBitField } = require('discord.js');
+const { SlashCommandBuilder } = require('discord.js');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const cooldown = require('../events/cooldown');
-const handleSlashCommandError = require('../error/slashCommandError'); 
+const slashCommandError = require('../error/slashCommandError'); 
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -34,7 +34,7 @@ module.exports = {
                 await interaction.editReply('ニュースが見つかりません');
             }
         } catch (error) {
-handleSlashCommandError(interaction.client, interaction, error);
+            slashCommandError(interaction.client, interaction, error);
         }
     }
 };
