@@ -29,7 +29,7 @@ module.exports = {
       const generatedText = generateSuddenDeathText(input);
       await interaction.editReply(generatedText);
     } catch (error) {
-      await slashCommandError(interaction.client, interaction, error);
+      slashCommandError(interaction.client, interaction, error);
     }
   },
 };
