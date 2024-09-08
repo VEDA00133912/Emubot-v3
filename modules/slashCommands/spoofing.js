@@ -27,10 +27,10 @@ module.exports = {
       const isCooldown = cooldown(commandName, interaction);
       if (isCooldown) return;
 
-      await interaction.deferReply({ ephemeral: true });
+      await interaction.reply({ content: '<a:loading:1259148838929961012> メッセージ送信準備中...', ephemeral: true });
 
       if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.ManageWebhooks)) {
-        return interaction.editReply('Webhookの管理権限がありません。');
+        return interaction.editReply('<:error:1282141871539490816> botにWebhookの管理権限がありません。');
       }
 
       const targetUser = interaction.options.getUser('target');
@@ -39,12 +39,12 @@ module.exports = {
       const nickname = interaction.options.getString('nickname');
 
       const invalidContentChecks = [
-        { regex: /@everyone|@here/, error: 'メッセージに@everyoneまたは@hereを含めることはできません。' },
-        { regex: /<@&\d+>|<@!\d+>|<@?\d+>/, error: 'メッセージにロールメンションまたはユーザーメンションを含めることはできません。' },
-        { regex: /.{501,}/, error: 'メッセージが500文字を超えています。' },
-        { regex: /(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li|com\/invite)|discordapp\.com\/invite|dsc\.gg|imgur\.com)\/[^\s]+/, error: '招待リンクやimgurリンクを含むメッセージは送信できません。' },
-        { regex: /[\w-]{24}\.[\w-]{6}\.[\w-]{27}/, error: 'メッセージにトークンを含めることはできません。' },
-        { regex: /\|{4,}/, error: 'メッセージに連続するスポイラーを含めることはできません。' }
+        { regex: /@everyone|@here/, error: '<:error:1282141871539490816> メッセージに@everyoneまたは@hereを含めることはできません。' },
+        { regex: /<@&\d+>|<@!\d+>|<@?\d+>/, error: '<:error:1282141871539490816> メッセージにロールメンションまたはユーザーメンションを含めることはできません。' },
+        { regex: /.{501,}/, error: '<:error:1282141871539490816> メッセージが500文字を超えています。' },
+        { regex: /(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li|com\/invite)|discordapp\.com\/invite|dsc\.gg|imgur\.com)\/[^\s]+/, error: '<:error:1282141871539490816> 招待リンクやimgurリンクを含むメッセージは送信できません。' },
+        { regex: /[\w-]{24}\.[\w-]{6}\.[\w-]{27}/, error: '<:error:1282141871539490816> メッセージにトークンを含めることはできません。' },
+        { regex: /\|{4,}/, error: '<:error:1282141871539490816> メッセージに連続するスポイラーを含めることはできません。' }
       ];
 
       for (const check of invalidContentChecks) {
@@ -58,7 +58,7 @@ module.exports = {
       if (!webhook) {
         webhook = await interaction.channel.createWebhook({
           name: 'Spoofing Webhook',
-          avatar: 'https://example.com/initial-avatar.png', 
+          avatar: 'https://cdn.discordapp.com/embed/avatars/5.png', 
           reason: 'Spoofingコマンドを実行',
         });
       }
@@ -74,9 +74,9 @@ module.exports = {
       const options = { content: message, files: attachment ? [attachment] : [] };
       await webhookClient.send(options);
 
-      await webhookClient.edit({ name: 'Spoofing Webhook', avatar: 'https://example.com/initial-avatar.png' });
+      await webhookClient.edit({ name: 'Spoofing Webhook', avatar: 'https://cdn.discordapp.com/embed/avatars/5.png' });
 
-      await interaction.editReply('メッセージを送信しました。');
+      await interaction.editReply('<:check:1282141869387550741> メッセージを送信しました。');
     } catch (error) {
       console.error('Error creating or sending webhook:', error);
       await slashCommandError(interaction.client, interaction, error);
