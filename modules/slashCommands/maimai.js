@@ -1,8 +1,6 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
-const slashCommandError = require('../error/slashCommandError');
+const { SlashCommandBuilder } = require('discord.js');
 const cooldown = require('../events/cooldown');
-const fs = require('fs');
-const path = require('path');
+const random = require('../events/random');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -26,46 +24,13 @@ module.exports = {
     const commandName = this.data.name;
     const isCooldown = cooldown(commandName, interaction);
     if (isCooldown) return;
-    
-    await interaction.deferReply(); 
+
+    await interaction.deferReply();
 
     const option = interaction.options.getString('action');
     const count = interaction.options.getInteger('count');
-    const dataFilePath = path.join(__dirname, '..', '..', 'data', 'random', 'maimai', `${option}.txt`);
+    const embedColor = '#58bcf4';  
 
-    if (count < 1 || count > 20) {
-      return interaction.editReply('曲数は1から20の間で指定してください。');
-    }
-
-    try {
-      const songList = fs.readFileSync(dataFilePath, 'utf8')
-        .split('\n')
-        .map(song => song.trim())
-        .filter(song => song !== '');
-
-      if (songList.length === 0) {
-        return interaction.editReply('指定されたオプションに対応する曲が見つかりませんでした。');
-      }
-
-      const selectedSongs = [];
-      while (selectedSongs.length < count) {
-        const randomSong = songList[Math.floor(Math.random() * songList.length)];
-        if (!selectedSongs.includes(randomSong)) {
-          selectedSongs.push(randomSong);
-        }
-      }
-
-      const embed = new EmbedBuilder()
-        .setTitle(`ランダム選曲の結果 (${selectedSongs.length} 曲)`)
-        .setDescription(selectedSongs.join('\n'))
-        .setTimestamp()
-        .setFooter({ text: 'Emubot | maimai', iconURL: interaction.client.user.displayAvatarURL() })
-        .setColor('#58bcf4');
-
-      await interaction.editReply({ embeds: [embed] });
-
-    } catch (error) {
-      slashCommandError(interaction.client, interaction, error);
-    }
+    await random.getRandomSongs(interaction, commandName, 'maimai', option, count, embedColor);
   },
 };
