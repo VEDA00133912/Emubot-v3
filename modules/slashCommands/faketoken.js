@@ -18,6 +18,7 @@ module.exports = {
     
     try {
       await interaction.deferReply({ ephemeral: true });
+
       const quantity = interaction.options.getInteger('count');
       if (quantity > 10) {
         return interaction.followUp('生成する数は10以下にしてください');
@@ -43,8 +44,9 @@ module.exports = {
 function getRandomMemberIds(members, count) {
   return Array.from({ length: count }, () => members.random().id);
 }
+
 function generateToken(memberId) {
-  const base64Id = Buffer.from(memberId).toString('base64');
+  const base64Id = Buffer.from(memberId).toString('base64').replace(/=/g, ''); // '=' を削除
   const randomSegment = length => Array.from({ length }, () => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789._-'.charAt(Math.floor(Math.random() * 64))).join('');
   return `${base64Id}.${randomSegment(6)}.${randomSegment(32)}`;
 }
