@@ -8,11 +8,11 @@ module.exports = {
     .setDescription('サーバー情報の表示'),
   async execute(interaction) {
     try {
-      await interaction.deferReply();
-
       const commandName = this.data.name;
       const isCooldown = cooldown(commandName, interaction);
       if (isCooldown) return;
+      
+      await interaction.deferReply();
 
       const guild = interaction.guild;
       const serverIconUrl = guild.iconURL({ size: 1024 });
@@ -38,8 +38,8 @@ module.exports = {
           { name: '鯖主 👑', value: `<@${guild.ownerId}> (${guild.ownerId})` },
           { name: 'サーバーブースト <a:boost:1282164483665428541>', value: `${interaction.guild.premiumSubscriptionCount}ブースト(${boostLevel}レベル)` },
           { name: 'チャンネル数', value: `TEXT : ${textChannelsCount}  VC: ${voiceChannelsCount} ` },
-        { name: 'メンバー数', value: `メンバー ${totalMemberCount}人 (ユーザー：${userCount}人  BOT：${botCount}人)\nロール数: **${guild.roles.cache.size}**` },
-        { name: 'BANユーザー数', value: `${bannedCount}人` }
+          { name: 'メンバー数', value: `メンバー ${totalMemberCount}人 (ユーザー：${userCount}人  BOT：${botCount}人)\nロール数: **${guild.roles.cache.size}**` },
+          { name: 'BANユーザー数', value: `${bannedCount}人` }
         );
 
       await interaction.editReply({ embeds: [embed] });
