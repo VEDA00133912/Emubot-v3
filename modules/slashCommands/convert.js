@@ -31,6 +31,10 @@ module.exports = {
 
   async execute(interaction) {
     try {
+      const commandName = this.data.name;
+      const isCooldown = cooldown(commandName, interaction);
+      if (isCooldown) return;
+      
       const type = interaction.options.getString('type');
       const text = interaction.options.getString('text');
 
@@ -46,10 +50,10 @@ module.exports = {
 
       const embed = new EmbedBuilder()
         .setColor('#f8b4cb')
-        .setTitle('変換完了！')
+        .setTitle(`${typeNameMap[type]}に変換完了！`)
         .setDescription(`\`\`\`${convertedText}\`\`\``)
         .setTimestamp()
-        .setFooter({ text: `Emubot | convert ${type}`, iconURL: interaction.client.user.displayAvatarURL() });
+        .setFooter({ text: `Emubot | convert ${typeNameMap[type]}`, iconURL: interaction.client.user.displayAvatarURL() });
 
       await interaction.editReply({ embeds: [embed] });
       
@@ -97,3 +101,5 @@ function convertText(type, text) {
 function convertUsingMap(text, map) {
   return text.toUpperCase().split('').map(char => map[char] || char).join('');
 }
+
+const typeNameMap = { rune: 'ルーン文字', phoenicia: 'フェニキア文字', hieroglyphs: 'ヒエログリフ', reverse: '逆読み', anagram: 'アナグラム', genhera: 'ﾒﾝﾍﾗ文生成', cjp: '怪しい日本語生成' };
