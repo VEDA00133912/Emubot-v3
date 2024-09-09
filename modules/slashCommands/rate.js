@@ -4,7 +4,6 @@ const { config } = require('dotenv');
 const yahooFinance = require('yahoo-finance2').default;
 const cooldown = require('../events/cooldown');
 const slashCommandError = require('../error/slashCommandError');
-const { config } = require('process');
 config();
 
 module.exports = {
