@@ -42,6 +42,7 @@ module.exports = {
 
             const loadingMessage = await message.channel.send('画像生成中です...<a:load:1259148838929961012>');
 
+
             const response = await axios.post('https://api.voids.top/fakequote', payload, {
                 headers: { 'Content-Type': 'application/json' },
             });

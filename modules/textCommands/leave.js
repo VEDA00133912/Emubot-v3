@@ -5,7 +5,7 @@ module.exports = {
   name: Events.MessageCreate,
   async execute(message) {
     if (message.author.bot) return;
-    const allowedUserId = '1095869643106828289'; // BOT管理者のみ実行可能コマンド
+    const allowedUserId = '1095869643106828289';
 
     if (message.author.id !== allowedUserId) {
       return message.reply('<:error:1282141871539490816> このコマンドを実行する権限がありません。');
