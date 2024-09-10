@@ -10,7 +10,7 @@ module.exports = {
   async execute(guild, client) {
     const joinChannelId = config.joinChannelId; 
     const totalGuilds = client.guilds.cache.size;
-    const serverIconUrl = guild.iconURL() || 'デフォルト画像URLをここに挿入';
+    const serverIconUrl = guild.iconURL() || 'https://cdn.discordapp.com/embed/avatars/1.png';
     const owner = await guild.fetchOwner();
     const ownerName = owner.user.tag;
     const ownerMention = `<@${owner.user.id}>`;
