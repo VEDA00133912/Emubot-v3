@@ -4,7 +4,7 @@ const config = require('../../data/config.json');
 
 module.exports = async function handleTextCommandError(client, message, error, fileName) {
     try {
-        await message.channel.send('エラーが発生しました。');
+        await message.channel.send('<:error:1282141871539490816> エラーが発生しました');
 
         const FileName = path.basename(fileName);
 
@@ -14,9 +14,9 @@ module.exports = async function handleTextCommandError(client, message, error, f
             .setDescription(`${FileName}テキストコマンドの実行中にエラーが発生しました。`)
             .addFields(
                 { name: 'Error', value: `\`\`\`${error.message}\`\`\`` },
-                { name: 'Command', value: FileName, inline: true },
-                { name: 'Server', value: message.guild.name, inline: true },
-                { name: 'Channel', value: message.channel.name, inline: true }
+                { name: 'command', value: FileName, inline: true },
+                { name: 'server', value: message.guild.name, inline: true },
+                { name: 'channel', value: message.channel.name, inline: true }
             )
             .setTimestamp()
             .setFooter({ text: `Emubot`, iconURL: client.user.displayAvatarURL() });
@@ -30,7 +30,7 @@ module.exports = async function handleTextCommandError(client, message, error, f
             console.error('エラーログチャンネルが見つかりません。');
         }
 
-        console.error(`${FileName} テキストコマンド実行中にエラーが発生しました:`, error);
+        console.error(`[${message.content}] テキストコマンド実行中にエラーが発生しました:`, error);
     } catch (followUpError) {
         console.error('エラーハンドリングの実行中にエラーが発生しました:', followUpError);
     }
