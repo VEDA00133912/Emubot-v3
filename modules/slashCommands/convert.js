@@ -102,4 +102,12 @@ function convertUsingMap(text, map) {
   return text.toUpperCase().split('').map(char => map[char] || char).join('');
 }
 
-const typeNameMap = { rune: 'ルーン文字', phoenicia: 'フェニキア文字', hieroglyphs: 'ヒエログリフ', reverse: '逆読み', anagram: 'アナグラム', genhera: 'ﾒﾝﾍﾗ文生成', cjp: '怪しい日本語生成' };
+const typeNameMap = {
+  rune: 'ルーン文字',
+  phoenicia: 'フェニキア文字',
+  hieroglyphs: 'ヒエログリフ',
+  reverse: '逆読み',
+  anagram: 'アナグラム',
+  genhera: 'ﾒﾝﾍﾗ文生成',
+  cjp: '怪しい日本語生成'
+};

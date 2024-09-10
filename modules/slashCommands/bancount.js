@@ -24,7 +24,7 @@ module.exports = {
 
             const embed = new EmbedBuilder()
                 .setColor('#f8b4cb')
-                .setTitle('Banned Users')
+                .setTitle('<:dnd:1282208118486601778> Banned Users')
                 .setTimestamp()
                 .setFooter({ text: 'Emubot | bancount', iconURL: interaction.client.user.displayAvatarURL() })
                 .setDescription(`このサーバーのBANユーザー数: ${bannedUsersCount}`);

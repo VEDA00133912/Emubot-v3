@@ -1,4 +1,3 @@
-// infoのサブコマンドとして/info ipと/info whoisの実装
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const { config } = require('dotenv');
 const axios = require('axios');
@@ -33,14 +32,14 @@ module.exports = {
         if (isCooldown) return;
 
         const subcommand = interaction.options.getSubcommand();
-        const ip2_API = process.env.ip_API;
+        const ip2_API = process.env.info_API;
 
         if (subcommand === 'ip') {
             const ip = interaction.options.getString('ip');
             await interaction.deferReply({ ephemeral: true });
 
             if (!isValidIP(ip)) {
-                await interaction.editReply('無効なIPアドレスです。正しい形式のIPアドレスを入力してください。');
+                await interaction.editReply('<:error:1282141871539490816> 無効なIPアドレスです。正しい形式のIPアドレスを入力してください。');
                 return;
             }
 
@@ -49,7 +48,7 @@ module.exports = {
                 const data = response.data;
 
                 const embed = new EmbedBuilder()
-                    .setTitle(`IP Lookup for ${ip}`)
+                    .setTitle(`<:check:1282141869387550741> IP Lookup for ${ip}`)
                     .addFields(
                         { name: '国', value: data.country_name || 'None', inline: true },
                         { name: '地域', value: data.region_name || 'None', inline: true },
@@ -74,14 +73,14 @@ module.exports = {
         } else if (subcommand === 'whois') {
             let domain = interaction.options.getString('domain');
             domain = cleanDomainURL(domain); 
-            await interaction.deferReply();
+            await interaction.deferReply({ ephemeral: true });
 
             try {
                 const response = await axios.get(`https://api.ip2whois.com/v2?key=${ip2_API}&domain=${domain}`);
                 const data = response.data;
 
                 const embed = new EmbedBuilder()
-                    .setTitle(`WHOIS Lookup for ${domain}`)
+                    .setTitle(`<:check:1282141869387550741> WHOIS Lookup for ${domain}`)
                     .addFields(
                         { name: '作成日', value: data.create_date || 'None' },
                         { name: '更新日', value: data.update_date || 'None' },

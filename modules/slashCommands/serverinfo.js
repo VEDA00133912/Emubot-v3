@@ -11,7 +11,7 @@ module.exports = {
       const commandName = this.data.name;
       const isCooldown = cooldown(commandName, interaction);
       if (isCooldown) return;
-      
+
       await interaction.deferReply();
 
       const guild = interaction.guild;
@@ -26,7 +26,7 @@ module.exports = {
       const totalMemberCount = userCount + botCount;
       const bans = await guild.bans.fetch();
       const bannedCount = bans.size;
-      
+
       const embed = new EmbedBuilder()
         .setColor('#f8b4cb')
         .setTimestamp()

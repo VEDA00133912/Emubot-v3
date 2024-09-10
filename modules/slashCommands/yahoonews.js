@@ -34,7 +34,7 @@ module.exports = {
                 await interaction.editReply('ニュースが見つかりません');
             }
         } catch (error) {
-            slashCommandError(interaction.client, interaction, error);
+  slashCommandError(interaction.client, interaction, error);
         }
     }
 };

@@ -6,10 +6,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('userinfo')
         .setDescription('ユーザーの検索')
-        .addUserOption(option => 
-          option.setName('user')
-          .setDescription('ユーザーIDかメンションを入力してください')
-          .setRequired(true)),
+        .addUserOption(option => option.setName('user').setDescription('ユーザーIDかメンションを入力してください').setRequired(true)),
 
     async execute(interaction) {
         const commandName = this.data.name;
@@ -22,6 +19,7 @@ module.exports = {
             const user = interaction.options.getUser('user');
             const member = user ? await interaction.guild.members.fetch(user.id).catch(() => null) : null;
             const avatarURL = member?.displayAvatarURL({ size: 1024 }) || user.displayAvatarURL({ size: 1024 });
+
             const joinedAt = member ? member.joinedAt : null;
             const daysSinceJoined = joinedAt ? Math.floor((new Date() - joinedAt) / (1000 * 60 * 60 * 24)) : null;
             const joinedAtFormatted = joinedAt ? joinedAt.toLocaleString('ja-JP') : '未参加';
@@ -35,7 +33,13 @@ module.exports = {
                     { name: 'ユーザー名', value: user.tag },
                     { name: 'ユーザーID', value: `\`\`\`\n${user.id}\n\`\`\`` },
                     { name: 'アカウント作成日', value: user.createdAt ? user.createdAt.toLocaleString('ja-JP') : '不明', inline: true },
-                    { name: 'サーバー参加日', value: joinedAt ? `${joinedAtFormatted} (${daysSinceJoined}日前)` : '未参加',inline: true },
+                    { 
+                        name: 'サーバー参加日', 
+                        value: joinedAt 
+                            ? `${joinedAtFormatted} (${daysSinceJoined}日前)` 
+                            : '未参加',
+                        inline: true 
+                    },
                     { name: 'アカウント', value: user.bot ? 'BOT 🤖' : 'USER <:user:1254362184272707676>', inline: true }
                 );
 

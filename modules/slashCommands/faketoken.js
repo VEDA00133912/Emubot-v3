@@ -15,7 +15,7 @@ module.exports = {
     const commandName = this.data.name;
     const isCooldown = cooldown(commandName, interaction);
     if (isCooldown) return;
-    
+
     try {
       await interaction.deferReply({ ephemeral: true });
 
@@ -46,7 +46,7 @@ function getRandomMemberIds(members, count) {
 }
 
 function generateToken(memberId) {
-  const base64Id = Buffer.from(memberId).toString('base64').replace(/=/g, ''); // '=' を削除
+  const base64Id = Buffer.from(memberId).toString('base64').replace(/=/g, ''); 
   const randomSegment = length => Array.from({ length }, () => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789._-'.charAt(Math.floor(Math.random() * 64))).join('');
   return `${base64Id}.${randomSegment(6)}.${randomSegment(32)}`;
 }

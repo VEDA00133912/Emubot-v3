@@ -38,7 +38,7 @@ module.exports = {
                 .setColor('#f47fff')
                 .setTimestamp()
                 .setFooter({ text: 'Emubot | fake nitro', iconURL: interaction.client.user.displayAvatarURL() })
-                .setDescription(`**Fake ${type === 'nitro' ? 'Nitro Gift' : 'Promo Nitro'} Links** <a:nitronitronitro:1240815301801545789>\n${type === 'nitro' ? 'Nitroギフトリンク' : 'プロモNitroリンク'}\n${nitroLinks.join('\n')}`);
+                .setDescription(`<a:boost:1282164483665428541> **Fake ${type === 'nitro' ? 'Nitro Gift' : 'Promo Nitro'} Links** <a:boost:1282164483665428541>\n${type === 'nitro' ? 'Nitroギフトリンク' : 'プロモNitroリンク'}\n${nitroLinks.join('\n')}`);
 
             await interaction.editReply({ embeds: [embed] });
         } catch (error) {

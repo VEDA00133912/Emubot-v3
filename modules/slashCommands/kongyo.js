@@ -14,7 +14,7 @@ module.exports = {
       
       await interaction.reply("[コンギョー](https://www.youtube.com/watch?v=IkOEbH7lawI)");
     } catch (error) {
-      slashCommandError(interaction.client, interaction, error);
+    slashCommandError(interaction.client, interaction, error);
     }
   },
 };

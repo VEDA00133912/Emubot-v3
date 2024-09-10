@@ -26,7 +26,7 @@ module.exports = {
         return;
       }
 
-      const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(url)}&size=300x300`;
+      const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(url)}&size=200x200`;
 
       const embed = new EmbedBuilder()
         .setColor('#f8b4cb')

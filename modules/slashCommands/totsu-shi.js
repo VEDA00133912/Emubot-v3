@@ -18,6 +18,7 @@ module.exports = {
 
     try {
       await interaction.deferReply();
+
       const input = interaction.options.getString('content');
 
       const validationError = validateContent(input);
@@ -29,7 +30,7 @@ module.exports = {
       const generatedText = generateSuddenDeathText(input);
       await interaction.editReply(generatedText);
     } catch (error) {
-      slashCommandError(interaction.client, interaction, error);
+      await slashCommandError(interaction.client, interaction, error);
     }
   },
 };
