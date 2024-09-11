@@ -13,7 +13,7 @@ module.exports = {
 
     try {
       const targetChannel = client.channels.cache.get(joinChannelId);
-      const avatarURL = targetUser.displayAvatarURL({ format: 'png', size: 1024 });
+      const avatarURL = interaction.client.user.displayAvatarURL({ format: 'png', size: 1024 });
       
       if (targetChannel) {
         const leaveEmbed = new EmbedBuilder()
