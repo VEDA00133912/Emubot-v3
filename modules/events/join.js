@@ -16,9 +16,17 @@ module.exports = {
     const ownerMention = `<@${owner.user.id}>`;
     const serverCreationDate = guild.createdAt.toDateString();
     const serverMemberCount = guild.memberCount;
+    const botNickname = config.nickname || client.user.username; 
 
     let dmStatus = '成功';
     let embedColor = 'Green';
+    let nicknameStatus = '成功';
+
+    try {
+      await guild.members.me.setNickname(botNickname);
+    } catch (error) {
+      nicknameStatus = '失敗'; 
+    }
 
     try {
       const ownerEmbed = new EmbedBuilder()
@@ -50,7 +58,8 @@ module.exports = {
             { name: '鯖主', value: `${ownerMention}\nユーザー名: ${ownerName}\nID: ${owner.user.id}` },
             { name: 'サーバー人数', value: `${serverMemberCount} 人` },
             { name: 'サーバー作成日', value: serverCreationDate },
-            { name: 'DM送信ステータス', value: dmStatus }
+            { name: 'DM送信ステータス', value: dmStatus },
+            { name: 'ニックネーム変更', value: `変更結果: ${nicknameStatus}` } 
           )
           .setThumbnail(serverIconUrl)
           .setFooter({ text: 'Emubot | join', iconURL: client.user.displayAvatarURL() })
@@ -60,7 +69,7 @@ module.exports = {
         await targetChannel.send({ embeds: [joinEmbed] });
       }
     } catch (error) {
-      console.error("参加通知エラーです:", error);
+      console.error('参加通知エラーです:', error);
     }
   }
 };
