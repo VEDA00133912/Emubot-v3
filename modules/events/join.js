@@ -1,7 +1,6 @@
 const { EmbedBuilder, Events, ChannelType } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
-
 const configPath = path.join(__dirname, '..', '..', 'data', 'config.json');
 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
 
@@ -31,10 +30,10 @@ module.exports = {
     try {
       const ownerEmbed = new EmbedBuilder()
         .setTitle('えむBOTの導入ありがとうございます！')
-        .setDescription(`"${guild.name}" に導入されました`)
+        .setDescription(`**${guild.name}** に導入されました`)
         .addFields(
           { name: '使用方法', value: 'コマンド等の説明は **`/help`** をご覧ください' },
-          { name: 'お困りの点・ご提案', value: 'なにかお困りの点、ご提案が有りましたら <@ryo_001339> (ryo_001339) にDMでご相談ください' },
+          { name: '問題が発生した時', value: 'なにかお困りの点、ご提案が有りましたら <@1095869643106828289> (ryo_001339) のDMかサポートサーバーででご相談ください' },
           { name: 'サポートサーバー', value: 'https://discord.gg/Ftz4Tcs8tR' }
         )
         .setThumbnail(serverIconUrl)
