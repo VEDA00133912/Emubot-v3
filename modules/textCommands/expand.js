@@ -35,13 +35,14 @@ module.exports = {
         const { content, embeds, attachments, author, createdTimestamp, guild } = fetchedMessage;
         const displayName = guild.members.cache.get(author.id)?.displayName || author.tag;
 
-        if (!content && embeds.length) continue;
-
         const embed = new EmbedBuilder()
           .setColor(0xf8b4cb)
           .setTimestamp(createdTimestamp)
-          .setAuthor({ name: displayName, iconURL: author.displayAvatarURL() })
-          .setDescription(content || '');
+          .setAuthor({ name: displayName, iconURL: author.displayAvatarURL() });
+
+        if (content) {
+          embed.setDescription(content);
+        }
 
         if (attachments.size) {
           const attachment = attachments.first();
@@ -54,7 +55,9 @@ module.exports = {
           }
         }
 
-        message.channel.send({ embeds: [embed] });
+        if (content || attachments.size) {
+          message.channel.send({ embeds: [embed] });
+        }
 
       } catch (error) {
         console.error('メッセージの取得中にエラーが発生しました:', error);
