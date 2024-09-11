@@ -4,7 +4,14 @@ const config = require('../../data/config.json');
 
 module.exports = async function handleTextCommandError(client, message, error, fileName) {
     try {
-        await message.channel.send('<:error:1282141871539490816> エラーが発生しました');
+        const replyMessage = await message.reply({
+            content: '<:error:1282141871539490816> エラーが発生しました',
+            allowedMentions: { repliedUser: false } 
+        });
+
+        setTimeout(() => {
+            replyMessage.delete().catch(console.error);
+        }, 5000);
 
         const FileName = path.basename(fileName);
 
@@ -30,7 +37,7 @@ module.exports = async function handleTextCommandError(client, message, error, f
             console.error('エラーログチャンネルが見つかりません。');
         }
 
-        console.error(`[${message.content}] テキストコマンド実行中にエラーが発生しました:`, error);
+        console.error(`${FileName} テキストコマンド実行中にエラーが発生しました:`, error);
     } catch (followUpError) {
         console.error('エラーハンドリングの実行中にエラーが発生しました:', followUpError);
     }
