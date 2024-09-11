@@ -2,6 +2,7 @@ const { EmbedBuilder, Events } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 const SETTINGS_FILE = path.join(__dirname, '..', '..', 'data', 'msglink.json');
+const textCommandError = require('../error/textCommandError');
 
 module.exports = {
   name: Events.MessageCreate,
@@ -16,7 +17,7 @@ module.exports = {
       try {
         settings = JSON.parse(fs.readFileSync(SETTINGS_FILE, 'utf8'));
       } catch (error) {
-        console.error('設定ファイルの読み取りまたは解析中にエラーが発生しました:', error);
+        textCommandError(client, message, error, __filename);
       }
     }
 
@@ -38,6 +39,7 @@ module.exports = {
         const embed = new EmbedBuilder()
           .setColor(0xf8b4cb)
           .setTimestamp(createdTimestamp)
+          .setFooter({ text: 'Emubot | Expand', iconURL: message.client.user.displayAvatarURL() })
           .setAuthor({ name: displayName, iconURL: author.displayAvatarURL() });
 
         if (content) {
@@ -60,7 +62,7 @@ module.exports = {
         }
 
       } catch (error) {
-        console.error('メッセージの取得中にエラーが発生しました:', error);
+        textCommandError(client, message, error, __filename);
       }
     }
   }
