@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionsBitField, WebhookClient } = require('discord.js');
+const { SlashCommandBuilder, PermissionsBitField, WebhookClient, ChannelType } = require('discord.js');
 const slashCommandError = require('../error/slashCommandError');
 const cooldown = require('../events/cooldown');
 
@@ -28,6 +28,10 @@ module.exports = {
       if (isCooldown) return;
 
       await interaction.reply({ content: '<a:loading:1259148838929961012> メッセージ送信準備中...', ephemeral: true });
+
+      if (interaction.channel.type === ChannelType.PublicThread || interaction.channel.type === ChannelType.PrivateThread) {
+        return interaction.editReply('<:error:1282141871539490816> スレッドではこのコマンドを実行できません。');
+      }
 
       if (!interaction.guild.members.me.permissions.has(PermissionsBitField.Flags.ManageWebhooks)) {
         return interaction.editReply('<:error:1282141871539490816> botにWebhookの管理権限がありません。');
